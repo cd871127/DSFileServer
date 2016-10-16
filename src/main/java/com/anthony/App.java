@@ -13,7 +13,7 @@ public class App {
         DSFileManager dsf = ctx.getBean(DSFileManager.class);
         dsf.start("G:\\TestDir");
         Logger logger = LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
-        logger.info("sssss");
+        logger.info("ssssss");
     }
 
 

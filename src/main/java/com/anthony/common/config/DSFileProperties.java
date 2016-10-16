@@ -1,6 +1,5 @@
 package com.anthony.common.config;
 
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedInputStream;
@@ -15,7 +14,6 @@ import java.util.Properties;
  * Created by Anthony on 2016/10/16.
  */
 @Component
-@Scope("singleton")
 public class DSFileProperties extends AbstractDSFileConfig {
 
 

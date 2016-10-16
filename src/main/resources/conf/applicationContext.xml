@@ -13,4 +13,8 @@
 
     <!--开启aop-->
     <aop:aspectj-autoproxy/>
+
+    <!--<bean id="Log4jConfigurationFactory" class="org.apache.logging.log4j.core.config.ConfigurationFactory">-->
+
+    <!--</bean>-->
 </beans>

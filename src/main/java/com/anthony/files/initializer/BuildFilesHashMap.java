@@ -1,30 +1,21 @@
 package com.anthony.files.initializer;
 
+import org.springframework.stereotype.Component;
+
 import java.io.File;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Map;
 
 /**
  * Created by Anthony on 2016/10/16.
  */
 
-public class BuildFilesHashMap implements Runnable, BuildFilesData {
-    public Map<String, LinkedList<String>> getFileMap() {
-        return fileMap;
-    }
+@Component
+public class BuildFilesHashMap extends ScanFileSystem {
 
-    public static List<File> queue = Collections.synchronizedList(new LinkedList());
-    private Map<String, LinkedList<String>> fileMap = new HashMap<>();
-
-    private String path;
-
-    public BuildFilesHashMap() {
-        super();
-    }
-
-    public Map<String, LinkedList<String>> TraversalDir() {
-
-//        queue.add(new File(path));
-        File file = null;
+    @Override
+    protected Map<String, HashSet<String>> TraversalDir() {
+        File file;
         do {
             synchronized (queue) {
                 file = queue.remove(queue.size() - 1);
@@ -42,39 +33,20 @@ public class BuildFilesHashMap implements Runnable, BuildFilesData {
         return fileMap;
     }
 
-    private void addFileToMap(File file) {
+    private synchronized void addFileToMap(File file) {
         String fileName = file.getName();
-        LinkedList<String> fileList = fileMap.get(fileName);
+        HashSet<String> fileSet = fileMap.get(fileName);
 
-        if (null == fileList) {
-            fileList = new LinkedList<>();
-            fileMap.put(fileName, fileList);
+        if (null == fileSet) {
+            fileSet = new HashSet<>();
+            fileMap.put(fileName, fileSet);
         }
-        fileList.add(file.getAbsolutePath());
+        fileSet.add(file.getAbsolutePath());
     }
 
     @Override
     public void run() {
         fileMap = TraversalDir();
     }
-
-
-//    private void TraversalDir(String path)
-//    {
-//        File file=new File(path);
-//        addFiletoMap(file);
-//        File[] files;
-//        if(file.isDirectory())
-//        {
-//            files=file.listFiles();
-//            if(files!=null) {
-//                for (File f : files) {
-//                    TraversalDir(f.getAbsoluteFile().toString());
-//                }
-//            }
-//        }
-//
-//    }
-
 
 }

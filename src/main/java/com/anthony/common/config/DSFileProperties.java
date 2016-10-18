@@ -26,7 +26,7 @@ public class DSFileProperties extends AbstractDSFileConfig {
             if (null != in) {
                 properties.load(in);
                 Enumeration pNames = properties.propertyNames();
-                configMap = new HashMap<String, String>();
+                configMap = new HashMap<>();
                 while (pNames.hasMoreElements()) {
                     String key = pNames.nextElement().toString();
                     configMap.put(key, properties.getProperty(key));

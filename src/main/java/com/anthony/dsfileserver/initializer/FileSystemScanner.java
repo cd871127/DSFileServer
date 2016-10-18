@@ -1,4 +1,4 @@
-package com.anthony.files.initializer;
+package com.anthony.dsfileserver.initializer;
 
 import java.io.File;
 import java.util.*;
@@ -6,7 +6,7 @@ import java.util.*;
 /**
  * Created by Anthony on 2016/10/16.
  */
-public abstract class ScanFileSystem implements Runnable {
+public abstract class FileSystemScanner implements Runnable {
 
     protected static List<File> queue = Collections.synchronizedList(new LinkedList());
     protected static Map<String, HashSet<String>> fileMap = new HashMap<>();

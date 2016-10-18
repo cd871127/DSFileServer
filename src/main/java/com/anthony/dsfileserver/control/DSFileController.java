@@ -1,8 +1,7 @@
-package com.anthony.common.control;
+package com.anthony.dsfileserver.control;
 
-import com.anthony.common.config.DSFileConfig;
-import com.anthony.files.initializer.BuildFilesHashMap;
-import com.anthony.files.initializer.ScanFileSystem;
+import com.anthony.dsfileserver.config.DSFileConfig;
+import com.anthony.dsfileserver.initializer.FileSystemScanner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,7 +16,7 @@ public class DSFileController {
     private DSFileConfig config;
 
     @Autowired
-    private ScanFileSystem scanFileSystem;
+    private FileSystemScanner fileSystemScanner;
 
     public int getThreadCount() {
         return threadCount;
@@ -46,10 +45,10 @@ public class DSFileController {
     public void getStart(String[] paths) {
         init();
 
-        BuildFilesHashMap.setPath(paths);
+        FileSystemScanner.setPath(paths);
         ArrayList<Thread> threadList = new ArrayList<>();
         for (int i = 0; i != threadCount; ++i) {
-            Thread t = new Thread(scanFileSystem);
+            Thread t = new Thread(fileSystemScanner);
             threadList.add(t);
             t.start();
         }

@@ -1,4 +1,4 @@
-package com.anthony.files.initializer;
+package com.anthony.dsfileserver.initializer;
 
 import org.springframework.stereotype.Component;
 
@@ -11,7 +11,7 @@ import java.util.Map;
  */
 
 @Component
-public class BuildFilesHashMap extends ScanFileSystem {
+public class BuildFilesHashMap extends FileSystemScanner {
 
     @Override
     protected Map<String, HashSet<String>> TraversalDir() {

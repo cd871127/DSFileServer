@@ -1,6 +1,6 @@
 package com.anthony;
 
-import com.anthony.common.control.DSFileController;
+import com.anthony.dsfileserver.control.DSFileController;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 

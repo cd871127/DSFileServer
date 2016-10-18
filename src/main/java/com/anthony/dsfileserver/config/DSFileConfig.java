@@ -1,4 +1,4 @@
-package com.anthony.common.config;
+package com.anthony.dsfileserver.config;
 
 import java.util.Map;
 

@@ -1,4 +1,4 @@
-package com.anthony.common.log;
+package com.anthony.dsfileserver.log;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;

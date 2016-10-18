@@ -1,35 +1,40 @@
-package com.anthony.files;
-
-import org.springframework.stereotype.Component;
+package com.anthony.files.initializer;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * Created by Anthony on 2016/10/16.
  */
-@Component
-public class BuildFilesHashMap implements BuildFilesData {
+
+public class BuildFilesHashMap implements Runnable, BuildFilesData {
     public Map<String, LinkedList<String>> getFileMap() {
         return fileMap;
     }
 
+    public static List<File> queue = Collections.synchronizedList(new LinkedList());
     private Map<String, LinkedList<String>> fileMap = new HashMap<>();
 
-    public Map<String, LinkedList<String>> TraversalDir(String path) {
-        Queue<File> queue = new LinkedList<>();
-        queue.add(new File(path));
+    private String path;
+
+    public BuildFilesHashMap() {
+        super();
+    }
+
+    public Map<String, LinkedList<String>> TraversalDir() {
+
+//        queue.add(new File(path));
+        File file = null;
         do {
-            File file = queue.remove();
+            synchronized (queue) {
+                file = queue.remove(queue.size() - 1);
+            }
             addFileToMap(file);
             if (file.isDirectory()) {
                 File[] files = file.listFiles();
                 if (null != files) {
                     for (int i = 0; i != files.length; ++i) {
-                        queue.add(files[i]);
+                        queue.add(0, files[i]);
                     }
                 }
             }
@@ -40,11 +45,17 @@ public class BuildFilesHashMap implements BuildFilesData {
     private void addFileToMap(File file) {
         String fileName = file.getName();
         LinkedList<String> fileList = fileMap.get(fileName);
+
         if (null == fileList) {
-            fileList = new LinkedList<String>();
+            fileList = new LinkedList<>();
             fileMap.put(fileName, fileList);
         }
         fileList.add(file.getAbsolutePath());
+    }
+
+    @Override
+    public void run() {
+        fileMap = TraversalDir();
     }
 
 

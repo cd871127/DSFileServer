@@ -6,6 +6,7 @@ import com.anthony.dsfileserver.filestruct.FileNode;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
+import java.util.Stack;
 
 /**
  * Created by Anthony on 2016/10/19.
@@ -29,10 +30,14 @@ public class BuildFileSystemTree {
         }
     }
 
-//    private build()
-//    {
-//
-//    }
+    private DataNode tree(DataNode r) {
+        Stack<DataNode> stack = new Stack<>();
+
+        File file = new File(r.getName());
+        return null;
+    }
+
+
 
     public void showTree() {
         if (null == root) {
